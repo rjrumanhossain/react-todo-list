@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import './App.css'
-import { ListComponents } from './components/ListComponents'
+import { Todo } from './projects/Todo/Todo'
 
 function App() {
 
   return (
     <>
-      <ListComponents/>
+      <section><Todo/></section>
     </>
   )
 }
