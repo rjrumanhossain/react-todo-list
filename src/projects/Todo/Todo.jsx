@@ -1,11 +1,12 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Todo.css';
 import { CiCircleCheck, CiTrash } from 'react-icons/ci';
 export const Todo = () => {
 
     const [inputValue, setInputvalue] = useState("");
     const [task, setTask] = useState([]);
+    const [dateTime, setDateTime]  = useState("");
 
     const inputHandler = (value) => {
         setInputvalue(value);
@@ -21,11 +22,26 @@ export const Todo = () => {
     }
 
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+        const now = new Date();
+        const formateDate = now.toLocaleDateString();
+        const formateTime = now.toLocaleTimeString();
+        setDateTime(`${formateDate} - ${formateTime}`);
+
+
+        return () => clearInterval(interval);
+    }, 1000);
+    }, [])
+
+
+   
 
     return <>
         <section className="todo-container">
             <header>
-                <h1>Tod List</h1>
+                <h1>Todo List</h1>
+                <h2 className='date-time'>{dateTime} </h2>
             </header>
             <section className='form'>
                 <form onSubmit={(event) => fromHandler(event)}>
