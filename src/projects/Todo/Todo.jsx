@@ -4,22 +4,22 @@ import './Todo.css';
 import { CiCircleCheck, CiTrash } from 'react-icons/ci';
 export const Todo = () => {
 
+    //state
     const [inputValue, setInputvalue] = useState("");
-
     const [task, setTask] = useState(JSON.parse(localStorage.getItem('task'))?? []);
-
-
     const [dateTime, setDateTime]  = useState("");
 
+    //input handlers
     const inputHandler = (value) => {
         setInputvalue(value);
     }
 
+    //form Submit handler
     const fromHandler = (event) => {
         event.preventDefault();
         if(!inputValue) return;
 
-        if(task[name].includes(inputValue)) return;
+        if(task.find(task => task.name == inputValue)) return;
 
         setTask((prev) =>{
             const final = {
@@ -27,21 +27,22 @@ export const Todo = () => {
                 "status": false
             }
             const updated =  [...prev, final];
-
             localStorage.setItem('task', JSON.stringify(updated));
             return updated;
         });
         setInputvalue("");
     }
 
+    // realtime date & Time
+
     useEffect(() => {
         const interval = setInterval(() => {
-        const now = new Date();
-        const formateDate = now.toLocaleDateString();
-        const formateTime = now.toLocaleTimeString();
-        setDateTime(`${formateDate} - ${formateTime}`);
-        return () => clearInterval(interval);
-    }, 1000);
+            const now = new Date();
+            const formateDate = now.toLocaleDateString();
+            const formateTime = now.toLocaleTimeString();
+            setDateTime(`${formateDate} - ${formateTime}`);
+            return () => clearInterval(interval);
+        }, 1000);
     }, []);
 
     const checkInIteam = (id) => {
